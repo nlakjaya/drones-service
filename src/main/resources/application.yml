@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: drones
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+springdoc:
+  packagesToScan: com.musala.test.drones
+logging:
+  level:
+    com:
+      drone: DEBUG
+  file:
+    max-size: 1MB
+    max-history: 10
+    path: './logs/${spring.application.name}'
+    name: ${logging.file.path}/${POD_NAME:drones-service}.log
+  pattern:
+    file: "[%d] [%t] %-5level [${spring.application.name},%X{traceId},%X{spanId},%X{activityid}] %logger{36} - %msg%n"
+    console: "[%d] [%t] %-5level [${spring.application.name},%X{traceId},%X{spanId},%X{activityid}] %logger{36} - %msg%n"
+  
+ 
